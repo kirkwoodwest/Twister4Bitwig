@@ -55,6 +55,9 @@ public class MappableCursorTrackSelector extends AbstractDiscreteMappableParamet
                 cursorTrack.makeVisibleInMixer();
             }
         }
+        if(newIndex< 0) {
+            cursorTrack.selectParent();
+        }
     }
 
     public void enableAutoScroll(boolean enabled) { autoScroll = enabled; }

@@ -54,7 +54,7 @@ public class MidiFighterTwisterExtensionDefinition extends ControllerExtensionDe
     @Override
     public int getRequiredAPIVersion()
     {
-        return 7;
+        return 14;
     }
 
     @Override

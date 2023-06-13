@@ -28,6 +28,7 @@ public class MidiFighterTwisterExtension extends ControllerExtension {
         final Application application = host.createApplication();
         final Transport transport = host.createTransport();
         final CursorTrack cursorTrack = host.createCursorTrack(8, 0);
+
         final PinnableCursorDevice cursorDevice = cursorTrack.createCursorDevice();
         final CursorRemoteControlsPage remoteControlsPage = cursorDevice.createCursorRemoteControlsPage(8);
         final PopupBrowser popupBrowser = host.createPopupBrowser();
@@ -46,9 +47,18 @@ public class MidiFighterTwisterExtension extends ControllerExtension {
          * Device mode (bank 1) *
          * -------------------- */
 
+        cursorTrack.isGroup().markInterested();
+
         final MidiFighterTwister.Knob cursorTrackKnob1              = twister.getKnob(DEVICE_BANK, 0);
         cursorTrackKnob1.mapTo(mappableCursorTrackSelector);
-        cursorTrackKnob1.getButton().onDown(cursorTrack.arm()::toggle);
+        //cursorTrackKnob1.getButton().onLongPress(cursorTrack.arm()::toggle);
+        cursorTrackKnob1.getButton().onShortPress(()->{
+            if(cursorTrack.isGroup().get()) {
+                cursorTrack.selectFirstChild();
+            }
+        });
+
+        cursorTrackKnob1.getButton().onLongPress(cursorTrack.arm()::toggle);
         cursorTrack.color().addValueObserver(cursorTrackKnob1::setColor);
 
         final MidiFighterTwister.Knob cursorTrackVolumeKnob1        = twister.getKnob(DEVICE_BANK, 1);

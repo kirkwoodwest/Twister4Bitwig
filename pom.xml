@@ -7,7 +7,45 @@
 	<packaging>jar</packaging>
 	<name>Twister4Bitwig</name>
 	<version>1.0.1</version>
-	
+
+	<profiles>
+		<profile>
+			<id>windows-profile</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<bitwig.extension.directory>${env.USERPROFILE}/Documents/Bitwig Studio/Extensions</bitwig.extension.directory>
+			</properties>
+		</profile>
+		<profile>
+			<id>mac-profile</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<!--suppress UnresolvedMavenProperty -->
+				<bitwig.extension.directory>${env.HOME}/Documents/Bitwig Studio/Extensions</bitwig.extension.directory>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux-profile</id>
+			<activation>
+				<os>
+					<family>unix</family>
+					<name>Linux</name>
+				</os>
+			</activation>
+			<properties>
+				<bitwig.extension.directory>~/Bitwig Studio/Extensions</bitwig.extension.directory>
+			</properties>
+		</profile>
+	</profiles>
+
 	<repositories>
        <repository>
          <id>bitwig</id>
@@ -20,7 +58,7 @@
 		<dependency>
 			<groupId>com.bitwig</groupId>
 			<artifactId>extension-api</artifactId>
-			<version>7</version>
+			<version>14</version>
 		</dependency>
 	</dependencies>
 
